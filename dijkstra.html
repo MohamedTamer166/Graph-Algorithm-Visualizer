@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Shortest Path using Dijkstra's Algorithm</title>
+	<link rel="stylesheet" type="text/css" href="dijkstra.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<nav class="siteNav" aria-label="Main navigation">
+		<a href="index.html" class="siteNav__link">Home</a>
+		<a href="dijkstra.html" class="siteNav__link siteNav__link--current" aria-current="page">Dijkstra</a>
+		<a href="mst.html" class="siteNav__link">MST</a>
+		<a href="prim.html" class="siteNav__link">Prim</a>
+		<a href="kruskal.html" class="siteNav__link">Kruskal</a>
+	</nav>
+	<div id="page-cont">
+
+		<div id="svg-cont">
+			<svg width="640" height="480" version="1.1" id="shortestPathSvg" xmlns="http://www.w3.org/2000/svg">
+				<g id="gedge"></g>
+				<g id="gvertex"></g>
+			</svg>
+		</div>
+
+		<div id="control-cont">
+
+			<br>
+
+			<h1>Dijkstra's Algorithm Solver</h1>
+
+
+			<div id="input-cont">
+
+				<label class="inputLabel" for="drawVertex">
+					<input type="radio" name="radWorkMode" id="drawVertex" value="drawVertex" checked="">
+					Draw vertex
+				</label>
+				
+				<label class="inputLabel" for="drawEdge">
+					<input type="radio" name="radWorkMode" id="drawEdge" value="drawEdge">
+					Draw edge
+				</label>
+				
+				<label class="inputLabel" for="setCostLabel">
+					<input type="radio" name="radWorkMode" id="setCostLabel" value="setCostLabel">
+					Set cost or label
+				</label>
+				
+				<label class="inputLabel" for="setStart">
+					<input type="radio" name="radWorkMode" id="setStart" value="setStart">
+					Set Start
+				</label>
+				<label class="inputLabel" for="setEnd">
+					<input type="radio" name="radWorkMode" id="setEnd" value="setEnd">
+					Set End
+				</label>
+				
+			</div>
+
+			<br>
+
+			<div class="buttonGroup">
+				<button class="btn" id="savesvgbutton">Save graph</button>
+				<button onclick="calculateShortPath()" class="btn" id="calcShortPath">Calculate Short Path</button>
+				<button type="button" class="btn danger" id="clearCanvasButton">Clear canvas</button>
+				<button type="button" class="btn danger" id="removeVertexButton">Remove vertex</button>
+				<button type="button" class="btn danger" id="removeEdgeButton">Remove edge</button>
+			</div>
+
+			<br>
+			<br>
+			
+			<div id="shortestPathResult"></div>
+
+			<h2>Usage</h2>
+
+			<ul id="usage">
+				<li>While <b>Draw vertex</b> is selected, click anywhere in the canvas to create a vertex.</li>
+				<li>To draw an edge between two vertices, select the <b>Draw edge</b> radio button, then click on the
+					vertices you want to connect.</li>
+				<li>To change the cost or vertex label, click on the cost or the label while <b>Set cost or label</b>
+					radio
+					button is selected.</li>
+				<li>Finally, to run the algorithm, select <b>Set Start</b> then click on the starting vertex, then select <b>Set End</b> and click the destination vertex.</li>
+				<li>Use <b>Clear canvas</b> to remove the whole graph.</li>
+				<li>Use <b>Remove vertex</b> then click a vertex to delete it with its connected edges.</li>
+				<li>Use <b>Remove edge</b> then click an edge or its cost label to delete only that edge.</li>
+			</ul>
+
+
+
+			<!-- The Modal -->
+			<div id="divEdgeCost" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<h2>Edge Cost</h2>
+					<span class="close" onclick="closeDialogEdgeCost()">&times;</span>
+					<form>
+						<input type="number" maxlength="4" required="required" autocomplete="off" min="1" max="1000"
+							name="inputEdgeCost" id="inputEdgeCost">
+							<br>
+						<button class="btn" type="submit" id="btnSetEdgeCost">Set value</button>
+					</form>
+
+				</div>
+			</div>
+			<div id="divVertexLabel" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<h2>Vertex Label</h2>
+					<span class="close" onclick="closeDialogVertexLabel()">&times;</span>
+					<form>
+						<input type="text" maxlength="1" required="required" autocomplete="off" name="inputVertexLabel"
+							id="inputVertexLabel">
+						<button class="btn" type="submit" id="btnSetVertexLabel">Set value</button>
+					</form>
+
+				</div>
+			</div>
+
+
+			<script src="algorithm-performance.js"></script>
+			<script src="dijkstra.js"></script>
+
+		</div>
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,413 @@
+svg { border: 1px solid #ccc }
+
+/*start dijkstra*/
+/* Modal dialog */
+/* Credit: https://www.w3schools.com/howto/howto_css_modals.asp */
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/*end dijkstra*/
+/*start UI*/
+@font-face {
+    font-family: 'Google Sans';
+    font-style: normal;
+    font-weight: 400 700;
+    src: url(https://fonts.gstatic.com/s/googlesans/v59/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjIUvQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    font-display: swap;
+}
+
+body {
+    font-family: 'Google Sans', sans-serif;
+    margin: 0;
+}
+
+a {
+    color: #0b57d0;
+}
+
+/* Global site navigation (all pages) */
+.siteNav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    padding: 10px 20px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.siteNav .siteNav__link {
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    color: #0b57d0;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.siteNav .siteNav__link:hover {
+    background: #f5f5f5;
+    border-color: #ddd;
+}
+
+.siteNav .siteNav__link--current {
+    font-weight: 600;
+    background: #e8f0fe;
+    border-color: #c6dafc;
+    color: #0b57d0;
+}
+
+#page-cont {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+#control-cont {
+    padding: 0 40px;
+}
+
+.landingPage {
+    min-height: calc(100vh - 52px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f7f7;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.landingCard {
+    width: min(640px, 100%);
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    padding: 28px;
+}
+
+.landingCard h1 {
+    margin: 0;
+}
+
+.landingCard p {
+    color: #444;
+    font-size: 1.1rem;
+}
+
+.landingActions {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.landingBtn {
+    text-decoration: none;
+}
+
+.landingLinks {
+    margin-top: 18px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+#svg-cont {
+    /* display: none; */
+    width: 50vw;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background: #f0f0f0;
+    border-left: 2px solid #ccc;
+
+    & svg {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+#input-cont {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn {
+    padding: 5px 10px;
+    font: 400 20px 'Google Sans', sans-serif;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.15s;
+
+    &:hover {
+        backdrop-filter: brightness(0.95);
+    }
+}
+
+.btn.danger {
+    border-color: #fca5a5;
+}
+
+.btn.danger:hover,
+.btn.danger.activeAction {
+    background-color: #fee2e2;
+    border-color: #ef4444;
+}
+
+.btn.activeAction {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
+}
+
+.inputLabel {
+    padding: 10px 15px;
+    display: flex;
+    border-radius: 5px;
+    align-items: start;
+    border: 1px solid #ccc;
+    margin: 7px 5px;
+    cursor: pointer;
+
+    &:has(input:checked) {
+        background-color: #f2f2f2;
+        border: 3px solid rgb(0, 117, 255);
+        margin: 5px 3px;
+    }
+
+    &>input {
+        margin-right: 7px;
+        cursor: pointer;
+    }
+
+    &:hover {
+        background-color: #f5f5f5;
+    }
+}
+
+
+#usage {
+    max-width: 500px;
+    font-size: larger;
+    line-height: 1.7;
+    padding-inline-start: 22px;
+}
+
+.modal-content {
+    position: relative;
+    border-radius: 10px;
+	
+    & span {
+        position: absolute;
+        top: 5%;
+        right: 5%;
+    }
+
+    & input {
+        font-size: 25px;
+        padding-left: 8px;
+        max-width: 100%;
+    }
+
+    & button {
+        margin: 20px 0;
+        padding: 5px 10px;
+        font: 400 20px 'Google Sans', sans-serif;
+        background-color: transparent;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.15s;
+
+        &:hover {
+            backdrop-filter: brightness(0.95);
+        }
+    }
+}
+
+
+#shortestPathResult {
+    margin: 16px 0;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+}
+
+#shortestPathResult:empty {
+    display: none;
+}
+
+#mstResult {
+    margin: 16px 0;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+}
+
+#mstResult:empty {
+    display: none;
+}
+
+.warningText {
+    color: #b91c1c;
+    font-weight: 600;
+}
+
+/* Execution time + manual estimate comparison (all algorithm pages) */
+.graphStats {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    background: #fafafa;
+    font-size: 0.98rem;
+}
+
+.graphStats p {
+    margin: 6px 0;
+}
+
+.performanceCard {
+    margin-top: 12px;
+    padding: 14px 16px;
+    border: 1px solid #c6dafc;
+    border-radius: 10px;
+    background: #f8fbff;
+    font-size: 0.98rem;
+}
+
+.performanceCard__title {
+    margin: 0 0 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.performanceCard p {
+    margin: 8px 0;
+}
+
+.performanceCard__speedup {
+    margin-top: 12px !important;
+    line-height: 1.5;
+    color: #0f5132;
+}
+
+.performanceCard__muted {
+    margin-top: 12px !important;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.perfInfo {
+    cursor: help;
+    color: #666;
+    font-size: 0.95em;
+    margin-left: 4px;
+    vertical-align: middle;
+    user-select: none;
+}
+
+#shortestPathResult h2 {
+    margin-top: 0;
+}
+
+.pathLegend {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+#dijkstraSteps {
+    border-collapse: collapse;
+    font-size: larger;
+
+    &>tbody {
+        text-align: center;
+    }
+
+    & td,
+    & th {
+        padding: 5px 15px;
+    }
+
+    & th {
+        background-color: #f2f2f2;
+    }
+
+    & tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #page-cont {
+        flex-direction: column;
+    }
+    #control-cont {
+        width: calc(100% - 80px);
+    }
+    .landingCard {
+        padding: 20px;
+    }
+    #svg-cont {
+        width: 100%;
+        height: auto;
+        position: static;
+		border: none;
+		border-bottom: 2px solid #ccc;
+		& svg {
+			border: none;
+		}
+    }
+}
+/*End UI*/

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kruskal's Algorithm Visualizer</title>
+    <link rel="stylesheet" type="text/css" href="dijkstra.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav class="siteNav" aria-label="Main navigation">
+        <a href="index.html" class="siteNav__link">Home</a>
+        <a href="dijkstra.html" class="siteNav__link">Dijkstra</a>
+        <a href="mst.html" class="siteNav__link">MST</a>
+        <a href="prim.html" class="siteNav__link">Prim</a>
+        <a href="kruskal.html" class="siteNav__link siteNav__link--current" aria-current="page">Kruskal</a>
+    </nav>
+    <div id="page-cont">
+        <div id="svg-cont">
+            <svg width="640" height="480" version="1.1" id="mstSvg" xmlns="http://www.w3.org/2000/svg">
+                <g id="gedge"></g>
+                <g id="gvertex"></g>
+            </svg>
+        </div>
+
+        <div id="control-cont">
+            <br>
+
+            <h1>Kruskal's Algorithm Solver</h1>
+
+            <div id="input-cont">
+                <label class="inputLabel" for="drawVertex">
+                    <input type="radio" name="radWorkMode" id="drawVertex" value="drawVertex" checked="">
+                    Draw vertex
+                </label>
+
+                <label class="inputLabel" for="drawEdge">
+                    <input type="radio" name="radWorkMode" id="drawEdge" value="drawEdge">
+                    Draw edge
+                </label>
+
+                <label class="inputLabel" for="setCostLabel">
+                    <input type="radio" name="radWorkMode" id="setCostLabel" value="setCostLabel">
+                    Set cost or label
+                </label>
+            </div>
+
+            <br>
+
+            <div class="buttonGroup">
+                <button class="btn" id="savesvgbutton">Save graph</button>
+                <button onclick="calculateKruskalMst()" class="btn" id="calcMstButton">Calculate MST (Kruskal's)</button>
+                <button type="button" class="btn danger" id="clearCanvasButton">Clear canvas</button>
+                <button type="button" class="btn danger" id="removeVertexButton">Remove vertex</button>
+                <button type="button" class="btn danger" id="removeEdgeButton">Remove edge</button>
+            </div>
+
+            <div id="mstResult"></div>
+
+            <h2>Usage</h2>
+            <ul id="usage">
+                <li>Use <b>Draw vertex</b> then click on the canvas to add vertices.</li>
+                <li>Use <b>Draw edge</b>, then click two vertices to connect them with an undirected edge.</li>
+                <li>Use <b>Set cost or label</b> to edit edge weights (must be positive) or vertex labels.</li>
+                <li>Click <b>Calculate MST (Kruskal's)</b> to sort all edges, select valid edges, and highlight the MST in orange.</li>
+                <li>The result panel shows sorted edges and whether each was selected or skipped.</li>
+                <li>If the graph is disconnected, the solver shows <b>Graph is disconnected - MST not possible</b>.</li>
+            </ul>
+
+            <div id="divEdgeCost" class="modal">
+                <div class="modal-content">
+                    <h2>Edge Cost</h2>
+                    <span class="close" onclick="closeDialogEdgeCost()">&times;</span>
+                    <form>
+                        <input type="number" maxlength="4" required="required" autocomplete="off" min="1" max="1000"
+                            name="inputEdgeCost" id="inputEdgeCost">
+                        <br>
+                        <button class="btn" type="submit" id="btnSetEdgeCost">Set value</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="divVertexLabel" class="modal">
+                <div class="modal-content">
+                    <h2>Vertex Label</h2>
+                    <span class="close" onclick="closeDialogVertexLabel()">&times;</span>
+                    <form>
+                        <input type="text" maxlength="1" required="required" autocomplete="off" name="inputVertexLabel"
+                            id="inputVertexLabel">
+                        <button class="btn" type="submit" id="btnSetVertexLabel">Set value</button>
+                    </form>
+                </div>
+            </div>
+
+            <script src="algorithm-performance.js"></script>
+            <script src="kruskal.js"></script>
+        </div>
+    </div>
+</body>
+
+</html>
